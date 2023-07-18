@@ -87,7 +87,6 @@ jobs:
   close-issue:
     if: contains(github.event.issue.labels.*.name, 'deploy-automation')
     name: Update Branches
-    needs: [ merge-branch ]
     runs-on: ubuntu-latest
     steps:
       - name: Close issue with success
