@@ -2,11 +2,10 @@ name: Deploy automation on develop branch
 
 on:
   push:
-    branches:
-      - develop
 
 jobs:
   update-branch:
+    if: github.ref == 'refs/heads/develop'
     name: Update Homolog
     runs-on: ubuntu-latest
     steps:
