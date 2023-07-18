@@ -56,6 +56,8 @@ jobs:
     strategy:
       matrix:
         branch_name: ${{ fromJSON( needs.setup.outputs.branches ) }}
+      fail-fast: true
+      max-parallel: 1
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v2
@@ -68,14 +70,12 @@ jobs:
 
       - name: Rebase branch
         run: |
-          set +e
           git checkout develop
           git checkout ${{ matrix.branch_name }}
           git rebase develop
 
       - name: Merge branch
         run: |
-          set +e
           git checkout homolog
           git merge ${{ matrix.branch_name }}
 
@@ -84,14 +84,13 @@ jobs:
       #     set +e
       #     git push origin homolog
 
-  close-issue:
-    if: (failure() || success()) && !cancelled()
-    name: Update Branches
+  close-issue-with-success:
+    if: success() && !cancelled()
+    name: Close Issue
     needs: [ merge-branch ]
     runs-on: ubuntu-latest
     steps:
       - name: Close issue with success
-        if: success() && !cancelled()
         uses: peter-evans/close-issue@v2
         with:
           issue-number: ${{ github.event.issue.number }}
@@ -100,8 +99,13 @@ jobs:
             Branches updated: ${{ steps.branches.outputs.values }}
             Automation completed.
 
+  close-issue-with-error:
+    if: failure() && !cancelled()
+    name: Close Issue
+    needs: [ merge-branch ]
+    runs-on: ubuntu-latest
+    steps:
       - name: Close issue with failure
-        if: failure() && !cancelled()
         uses: peter-evans/close-issue@v2
         with:
           issue-number: ${{ github.event.issue.number }}
