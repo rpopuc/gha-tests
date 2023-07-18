@@ -4,6 +4,9 @@ on:
   issues:
     types: opened
 
+concurrency:
+  group: update-homolog
+
 jobs:
   setup:
     if: contains(github.event.issue.labels.*.name, 'deploy-automation')
