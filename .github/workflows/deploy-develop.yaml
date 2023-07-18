@@ -9,7 +9,7 @@ jobs:
     name: Update Homolog
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
+      - name: Checkout
         uses: actions/checkout@v2
         run: |
           git config --global user.email "robot@github.com"
