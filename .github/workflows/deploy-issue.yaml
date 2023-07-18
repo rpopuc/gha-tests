@@ -61,6 +61,12 @@ jobs:
           git checkout ${{ steps.branches.outputs.values }}
           git rebase develop
 
+      - name: Merge branch
+        run: |
+          set +e
+          git checkout homolog
+          git merge ${{ steps.branches.outputs.values }}
+
       # TODO: Testar se sempre está sendo executado!
       - name: Close issue
         if: (failure() || success()) && !cancelled()
