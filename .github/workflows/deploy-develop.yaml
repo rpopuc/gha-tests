@@ -12,18 +12,17 @@ jobs:
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
-        with:
-          ref: homolog
 
-      - name: Config git
-        run: |
-          git config --global user.email "robot@github.com"
-          git config --global user.name "Homolog Robot"
+      # - name: Config git
+      #   run: |
+      #     git config --global user.email "robot@github.com"
+      #     git config --global user.name "Homolog Robot"
 
       - name: Rebase branch
         run: |
           git fetch --all
-          git rebase origin/develop
+          git checkout homolog
+          git rebase --
 
       - name: Push branch
         run: |
