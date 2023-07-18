@@ -20,7 +20,7 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
-          git checkout homolog
+          git checkout origin/homolog
           git rebase develop
           git push --force origin homolog
 
