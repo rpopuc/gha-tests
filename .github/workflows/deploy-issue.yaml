@@ -76,7 +76,7 @@ jobs:
         run: |
           git checkout develop
           git checkout ${{ matrix.branch_name }}
-          git rebase develop
+          echo "Rebase with homolog"
           git rebase homolog
 
       - name: Merge branch
