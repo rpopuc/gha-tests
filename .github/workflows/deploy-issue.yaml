@@ -50,18 +50,22 @@ jobs:
       - name: Rebase homolog
         run: |
           set +e
+          git checkout develop
           git checkout homolog
-          git rebase origin/develop
+          git rebase develop
 
       - name: Rebase branch
         run: |
           set +e
+          git checkout develop
           git checkout ${{ steps.branches.outputs.values }}
-          git rebase origin/develop
+          git rebase develop
 
       - name: Merge branch
         run: |
           set +e
+          git config --global user.email "robot@github.com"
+          git config --global user.name "Homolog Robot"
           git checkout homolog
           git merge ${{ steps.branches.outputs.values }}
 
