@@ -11,7 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+        with:
+          ref: homolog
 
       - name: Config git
         run: |
