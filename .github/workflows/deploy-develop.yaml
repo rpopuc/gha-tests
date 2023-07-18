@@ -22,8 +22,8 @@ jobs:
         run: |
           git fetch --all
           git checkout homolog
-          git rebase --
+          git rebase develop
 
       - name: Push branch
         run: |
-          git push origin origin/homolog
+          git push origin homolog
