@@ -70,14 +70,14 @@ jobs:
         run: |
           set +e
           git checkout develop
-          git checkout ${{ steps.branches.outputs.values }}
+          git checkout ${{ matrix.branch_name }}
           git rebase develop
 
       - name: Merge branch
         run: |
           set +e
           git checkout homolog
-          git merge ${{ steps.branches.outputs.values }}
+          git merge ${{ matrix.branch_name }}
 
       # - name: Push branch
       #   run: |
