@@ -51,13 +51,13 @@ jobs:
         run: |
           set +e
           git checkout homolog
-          git rebase develop
+          git rebase origin/develop
 
       - name: Rebase branch
         run: |
           set +e
           git checkout ${{ steps.branches.outputs.values }}
-          git rebase develop
+          git rebase origin/develop
 
       - name: Merge branch
         run: |
