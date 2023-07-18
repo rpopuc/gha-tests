@@ -47,6 +47,13 @@ jobs:
           echo "$values" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Rebase branch
+        run: |
+          set +e
+          git checkout develop
+          git checkout ${{ steps.branches.outputs.values }}
+          git rebase develop
+
       # TODO: Testar se sempre está sendo executado!
       - name: Close issue
         if: (failure() || success()) && !cancelled()

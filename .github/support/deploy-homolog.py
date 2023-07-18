@@ -4,7 +4,7 @@ import re
 errors = []
 
 def parseBranches(payload):
-    matches = re.search("##\s+Branches\s*([^#]*)", payload, re.IGNORECASE + re.MULTILINE)
+    matches = re.search("##\s+branches\s*([^#]*)", payload, re.IGNORECASE + re.MULTILINE)
     return matches.group(1).strip() if matches != None else ''
 
 try:
