@@ -82,6 +82,8 @@ jobs:
         run: |
           git checkout homolog
           git merge --squash ${{ matrix.branch_name }}
+          echo ${{ matrix.branch_name }} >> homolog-branches
+          git add homolog-branches
           git commit -m "#merge#${{ matrix.branch_name }}"
 
       - name: Push branch
