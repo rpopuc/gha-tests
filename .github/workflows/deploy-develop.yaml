@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-branch:
-    name: Update Develop
+    name: Update Homolog
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
@@ -21,8 +21,9 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
+          git branch
           git checkout homolog
-      #     git rebase develop
+          git rebase develop
 
       # - name: Push branch
       #   run: |
