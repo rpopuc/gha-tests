@@ -67,6 +67,11 @@ jobs:
           git checkout homolog
           git merge ${{ steps.branches.outputs.values }}
 
+      - name: Push branch
+        run: |
+          set +e
+          git push origin homolog
+
       # TODO: Testar se sempre está sendo executado!
       - name: Close issue
         if: (failure() || success()) && !cancelled()
