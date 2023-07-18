@@ -13,7 +13,7 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v2
         with:
-          ref: homolog
+          fetch-depth: 0
 
       - name: Config git
         run: |
@@ -23,5 +23,6 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
-          git rebase origin/develop
+          git checkout homolog
+          git rebase develop
 
