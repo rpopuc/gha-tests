@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Config git
         run: |
           git config --global user.email "robot@github.com"
           git config --global user.name "Homolog Robot"
