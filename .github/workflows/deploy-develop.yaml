@@ -24,7 +24,7 @@ jobs:
           git checkout develop
           git checkout homolog
           git rebase develop
-​
+
       - name: Push branch
         run: |
           git push origin homolog
