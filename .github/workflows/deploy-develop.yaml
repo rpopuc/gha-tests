@@ -25,4 +25,5 @@ jobs:
           git fetch --all
           git checkout homolog
           git rebase develop
+          git push origin homolog
 
