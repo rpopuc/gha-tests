@@ -47,6 +47,13 @@ jobs:
           echo "$values" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Rebase homolog
+        run: |
+          set +e
+          git checkout develop
+          git checkout homolog
+          git rebase develop
+
       - name: Rebase branch
         run: |
           set +e
