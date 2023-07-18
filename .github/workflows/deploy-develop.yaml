@@ -22,7 +22,7 @@ jobs:
         run: |
           git fetch --all
           git branch
-          git checkout homolog
+          git checkout origin/homolog
           git rebase develop
 
       # - name: Push branch
