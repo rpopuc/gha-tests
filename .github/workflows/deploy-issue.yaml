@@ -44,7 +44,6 @@ jobs:
       - name: Obtém a branch a ser mergeada
         id: branches
         run: |
-          set +e
           values=`python3 .github/support/deploy-homolog.py "parse-branches" "${{ github.event.issue.body }}"`
           echo $values
           echo "values<<EOF" >> $GITHUB_OUTPUT
@@ -82,12 +81,8 @@ jobs:
       - name: Merge branch
         run: |
           git checkout homolog
-          git merge ${{ matrix.branch_name }}
-
-      - name: Waiting a little
-        run: |
-          echo "Aguardando 30 segundos..."
-          sleep 30
+          git merge --squash ${{ matrix.branch_name }}
+          git commit -m "#merge#${{ matrix.branch_name }}"
 
       - name: Push branch
         run: |
