@@ -19,9 +19,15 @@ jobs:
 
       - name: Rebase branch
         run: |
+          echo "Fetch"
           git fetch --all
+          echo "Quais branches"
           git branch
-          git checkout origin/homolog
+          echo "Indo para homolog"
+          git checkout homolog
+          echo "Quais branches"
+          git branch
+          echo "Rebase"
           git rebase develop
 
       # - name: Push branch
