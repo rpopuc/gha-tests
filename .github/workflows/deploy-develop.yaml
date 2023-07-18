@@ -1,0 +1,30 @@
+name: Deploy automation on develop branch
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  update-branch:
+    name: Update Develop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Config git
+        run: |
+          git config --global user.email "robot@github.com"
+          git config --global user.name "Homolog Robot"
+          git fetch --all
+
+      - name: Rebase branch
+        run: |
+          git checkout develop
+          git checkout homolog
+          git rebase develop
+​
+      - name: Push branch
+        run: |
+          git push origin homolog
