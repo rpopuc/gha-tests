@@ -23,5 +23,5 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
-          git rebase develop
+          git rebase origin/develop
 
