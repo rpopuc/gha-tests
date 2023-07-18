@@ -28,6 +28,5 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
-          git checkout homolog
           git rebase develop
 
