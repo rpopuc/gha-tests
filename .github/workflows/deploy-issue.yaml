@@ -82,10 +82,14 @@ jobs:
           git checkout homolog
           git merge ${{ matrix.branch_name }}
 
-      # - name: Push branch
-      #   run: |
-      #     set +e
-      #     git push origin homolog
+      - name: Waiting a little
+        run: |
+          echo "Aguardando 30 segundos..."
+          sleep 30
+
+      - name: Push branch
+        run: |
+          git push origin homolog
 
   close-issue-with-success:
     if: success() && !cancelled()
