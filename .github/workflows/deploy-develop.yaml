@@ -24,7 +24,7 @@ jobs:
           echo "Quais branches"
           git branch
           echo "Indo para homolog"
-          git checkout homolog
+          git checkout -b homolog origin/homolog
           echo "Quais branches"
           git branch
           echo "Rebase"
