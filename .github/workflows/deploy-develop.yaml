@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: homolog
 
       - name: Config git
         run: |
@@ -21,7 +23,6 @@ jobs:
       - name: Rebase branch
         run: |
           git fetch --all
-          git checkout homolog
           git rebase develop
 
       - name: Push branch
