@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       # - name: Config git
       #   run: |
@@ -19,16 +19,9 @@ jobs:
 
       - name: Rebase branch
         run: |
-          echo "Fetch"
           git fetch --all
-          echo "Quais branches"
-          git branch
-          echo "Indo para homolog"
-          git checkout -b homolog origin/homolog
-          echo "Quais branches"
-          git branch
-          echo "Rebase"
           git rebase develop
+          git push --force origin develop
 
       # - name: Push branch
       #   run: |
