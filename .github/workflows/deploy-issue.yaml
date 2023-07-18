@@ -1,0 +1,39 @@
+name: Deploy automation
+
+on:
+  issues:
+    types: opened
+
+jobs:
+  welcome:
+    name: Welcome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome
+        run: echo "New Issue"
+
+  setup:
+    if: contains(github.event.issue.labels.*.name, 'deploy-automation')
+    name: Setup
+    needs: [ welcome ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Deploy
+        run: echo "Setup deploy"
+
+      - name: Get action link
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Action link [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+      # TODO: Testar se sempre está sendo executado!
+      - name: Close issue
+        if: (failure() || success()) && !cancelled()
+        uses: peter-evans/close-issue@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: |
+            ## Finish :rocket:
+            Automation completed.
