@@ -62,6 +62,7 @@ jobs:
           if [[ -f homolog_branches ]]; then
             lista_branches=$(cat homolog_branches)
           fi;
+          git checkout develop
           git branch -D homolog
           git checkout -b homolog develop
           if ! echo "$lista_branches" | grep -qF "${{ matrix.branch_name }}"; then
