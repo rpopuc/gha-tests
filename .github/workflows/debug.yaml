@@ -1,0 +1,25 @@
+name: Build homolog
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Atualizar branch homolog
+        run: |
+          git config --global user.email "robot@github.com"
+          git config --global user.name "Homolog Robot"
+          git fetch --all
+          git checkout homolog
+          lista_branches=$(cat homolog_branches)
+          echo $lista_branches | while read -r branch; do
+            echo "Obtendo o ultimo commit de $branch para verificar se já foi mergeada"
+          done
