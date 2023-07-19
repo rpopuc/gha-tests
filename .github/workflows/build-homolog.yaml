@@ -59,8 +59,8 @@ jobs:
           git fetch --all
           git checkout homolog
           lista_branches=''
-          if [[ -f homolog_branches ]]; then
-            lista_branches=$(cat homolog_branches)
+          if [[ -f homolog-branches ]]; then
+            lista_branches=$(cat homolog-branches)
           fi;
           git checkout develop
           git branch -D homolog
@@ -85,7 +85,7 @@ jobs:
               git merge $branch
               echo "Rebase completo"
             fi
-          done
+          done <<< "$lista_branches"
           echo "Preparando homolog"
           git checkout homolog
           echo $lista_branches | tr ' ' '\n' > homolog_branches
