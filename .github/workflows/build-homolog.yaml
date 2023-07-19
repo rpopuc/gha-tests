@@ -71,6 +71,9 @@ jobs:
           echo $lista_branches
           while read -r branch; do
             echo "Obtendo o ultimo commit de $branch"
+            git checkout $branch
+            echo $branch
+            echo `git log --pretty=format:"%h" -1 $branch`
             git log --pretty=format:"%h" develop | grep `git log --pretty=format:"%h" -1 $branch` &> /dev/null
             if [ $? -eq 0 ]; then
               echo "Branch $branch já está mergeada"
@@ -78,7 +81,6 @@ jobs:
               echo "Lista atualizada: $lista_branches"
             else
               echo "Branch $branch não está mergeada"
-              git checkout $branch
               git rebase develop
               git checkout homolog
               git merge $branch
