@@ -1,0 +1,60 @@
+name: Build homolog
+
+on:
+  issues:
+    types: opened
+
+concurrency:
+  group: build-homolog
+
+jobs:
+  setup:
+    if: contains(github.event.issue.labels.*.name, 'build-homolog')
+    name: Setup
+    outputs:
+      branches: ${{ steps.branches.outputs.values }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get action link
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Action link [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+  merge-branch:
+    if: contains(github.event.issue.labels.*.name, 'build-homolog')
+    name: Build Homolog
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch_name: ${{ fromJSON( needs.setup.outputs.branches ) }}
+      fail-fast: true
+      max-parallel: 1
+    steps:
+      - name: Atualizar branch homolog
+        run: |
+          git config --global user.email "robot@github.com"
+          git config --global user.name "Homolog Robot"
+          git fetch --all
+          git checkout homolog
+          lista_branches=''
+          if [[ -f homolog_branches ]]; then
+            lista_branches=$(cat homolog_branches)
+          fi;
+          git branch -D homolog
+          git checkout -b homolog develop
+          if ! echo "$lista_branches" | grep -qF "$nova_branch"; then
+            lista_branches=`echo -e "$lista_branches\n$nova_branch"`
+          fi
+          while read -r branch; do
+              echo "Branch $branch"
+          done <<< "$lista_branches"
+
+
