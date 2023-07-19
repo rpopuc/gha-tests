@@ -3,6 +3,8 @@ name: Deploy automation
 on:
   issues:
     types: opened
+    tags:
+      - deploy-automation
 
 concurrency:
   group: update-homolog
