@@ -70,7 +70,7 @@ jobs:
           fi
           echo $lista_branches
           while read -r branch; do
-            echo "Obtendo o ultimo commit de $branch"
+            echo "Obtendo o ultimo commit de $branch para verificar se já foi mergeada"
             git checkout $branch
             echo $branch
             echo `git log --pretty=format:"%h" -1 $branch`
