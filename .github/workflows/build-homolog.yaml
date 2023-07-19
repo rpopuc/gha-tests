@@ -27,6 +27,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Obtém a branch a ser mergeada
+        id: branches
+        run: |
+          values=`python3 .github/support/deploy-homolog.py "parse-branches" "${{ github.event.issue.body }}"`
+          echo $values
+          echo "values<<EOF" >> $GITHUB_OUTPUT
+          echo "$values" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
   merge-branch:
     if: contains(github.event.issue.labels.*.name, 'build-homolog')
     name: Build Homolog
@@ -65,7 +74,7 @@ jobs:
             fi
           done <<< "$lista_branches"
           git checkout homolog
-          echo $lista_branches > homolog_branches
+          echo $lista_branches | tr ' ' '\n' > homolog_branches
           git add .
           git commit -m "Atualizando homolog"
           git push --force origin homolog
