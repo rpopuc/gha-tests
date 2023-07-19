@@ -47,6 +47,11 @@ jobs:
       fail-fast: true
       max-parallel: 1
     steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Atualizar branch homolog
         run: |
           git config --global user.email "robot@github.com"
