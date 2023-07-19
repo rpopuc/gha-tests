@@ -68,8 +68,7 @@ jobs:
           if ! echo "$lista_branches" | grep -qF "${{ matrix.branch_name }}"; then
             lista_branches=`echo -e "$lista_branches\n${{ matrix.branch_name }}"`
           fi
-          echo $lista_branches
-          while read -r branch; do
+          echo $lista_branches | while read -r branch; do
             echo "Obtendo o ultimo commit de $branch para verificar se já foi mergeada"
             git checkout $branch
             echo $branch
