@@ -19,7 +19,7 @@ jobs:
           git config --global user.name "Homolog Robot"
           git fetch --all
           git checkout homolog
-          lista_branches=$(cat homolog_branches)
+          lista_branches=$(cat homolog-branches)
           echo $lista_branches | while read -r branch; do
             echo "Obtendo o ultimo commit de $branch para verificar se já foi mergeada"
           done
