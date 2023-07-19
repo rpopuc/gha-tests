@@ -83,7 +83,9 @@ jobs:
         run: |
           git checkout homolog
           git merge --squash ${{ matrix.branch_name }}
-          echo ${{ matrix.branch_name }} >> homolog-branches
+          if ! grep -q "${{ matrix.branch_name }}" homolog-branches; then
+            echo ${{ matrix.branch_name }} >> homolog-branches
+          fi
           git add homolog-branches
           git commit -m "#merge#${{ matrix.branch_name }}"
 
