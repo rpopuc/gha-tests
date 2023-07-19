@@ -1,8 +1,8 @@
 ---
-name: Deploy
+name: Build homolog
 about: Test
-title: 'Deploy'
-labels: 'deploy-automation'
+title: 'Build Homolog'
+labels: 'build-homolog'
 assignees: ''
 ---
 
@@ -13,4 +13,4 @@ Realiza deploy automatizado da aplicação.
 environment_1
 
 ## Branches
-branch_name
+feat/reindex
