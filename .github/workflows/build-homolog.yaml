@@ -54,7 +54,18 @@ jobs:
             lista_branches=`echo -e "$lista_branches\n$nova_branch"`
           fi
           while read -r branch; do
-              echo "Branch $branch"
+            git log --pretty=format:"%h" develop | grep `git log --pretty=format:"%h" -1 $branch` &> /dev/null
+            if [ $? -eq 0 ]; then
+              lista_branches="${lista_branches//$branch/}"
+            else
+              git checkout $branch
+              git rebase develop
+              git checkout homolog
+              git merge $branch
+            fi
           done <<< "$lista_branches"
-
-
+          git checkout homolog
+          echo $lista_branches > homolog_branches
+          git add .
+          git commit -m "Atualizando homolog"
+          git push --force origin homolog
