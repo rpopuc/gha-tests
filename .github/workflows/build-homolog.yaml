@@ -85,7 +85,7 @@ jobs:
               git merge $branch
               echo "Rebase completo"
             fi
-          done <<< "$lista_branches"
+          done
           echo "Preparando homolog"
           git checkout homolog
           echo $lista_branches | tr ' ' '\n' > homolog_branches
