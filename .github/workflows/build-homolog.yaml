@@ -69,31 +69,23 @@ jobs:
             lista_branches=`echo -e "$lista_branches\n${{ matrix.branch_name }}"`
           fi
           echo $lista_branches | while read -r branch; do
-            echo "Obtendo o ultimo commit de $branch para verificar se já foi mergeada"
             git checkout $branch
-            echo $branch
-            echo `git log --pretty=format:"%h" -1 $branch`
             set +e
             git log --pretty=format:"%h" develop | grep `git log --pretty=format:"%h" -1 $branch` &> /dev/null
             if [ $? -eq 0 ]; then
               set -e
-              echo "Branch $branch já está mergeada"
               lista_branches="${lista_branches//$branch/}"
-              echo "Lista atualizada: $lista_branches"
             else
               set -e
-              echo "Branch $branch não está mergeada"
               git rebase develop
               git checkout homolog
-              git merge $branch
-              echo "Rebase completo"
+              git merge $branch --no-edit
             fi
           done <<< "$lista_branches"
           echo "Preparando homolog"
           git checkout homolog
-          echo $lista_branches | tr ' ' '\n' > homolog_branches
+          echo $lista_branches | tr ' ' '\n' > homolog-branches
           echo "Atualizando lista"
           git add .
           git commit -m "Atualizando homolog"
-          echo "Agora vai!"
           git push --force origin homolog
